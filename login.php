@@ -11,7 +11,7 @@
                 'password'=>$password
             );
             $response = postAPI('loginadmin',$data);
-            echo json_encode($response);
+            //echo json_encode($response);
             if($response['error']==0){
                 $_SESSION['tokenadmin']=$response['token'];
                 $result = _postApiLogin('getuserinfoadmin',$_SESSION['tokenadmin']);

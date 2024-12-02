@@ -7,7 +7,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 
-$is_local = true;
+$is_local = false;
 $is_mt = false;
 
 if($is_local){
