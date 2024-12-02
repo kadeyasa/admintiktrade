@@ -129,8 +129,8 @@ function _postAPIlogin($action,$token,$post_data=array()){
     $url = $_url.$action;
 
     // Set your API key and secret key
-    $api_key = "BOT_2bf3e1e5c6df805d1507339bba38cfd09d32ceed";
-    $secret_key = "5195980ef7f9f6dced0a6e71058d048fa77c7e7d8d48909ae1e72952d83ea294";
+    $api_key = "BOT_dd540cbc9600876ecdde1717eb7caff809b323a6";
+    $secret_key = "dc21cbf84d2389e6a8b830db4995552e999c5118beef8db82035f572f1f580b9";
 
     // Set any additional options
     $options = [
