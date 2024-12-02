@@ -1,0 +1,40 @@
+/* Input fields with shadow */
+.input-shadow {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.input-shadow:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+/* Button hover effect */
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Card styling */
+.card {
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+/* Full-height container for centering */
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+/* Links */
+a.text-decoration-none {
+    color: #007bff;
+}
+
+a.text-decoration-none:hover {
+    text-decoration: underline;
+}

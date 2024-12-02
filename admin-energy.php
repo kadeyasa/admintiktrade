@@ -1,0 +1,280 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+$title = "ADMIN - MEMBER ENERGY ";
+session_start();
+include('api.php');
+if(!isset($_SESSION['tokenadmin']) || $_SESSION['tokenadmin']==''){
+	header('location:login.php');
+}
+$valid =true;
+
+// Construct POST data array
+$search = array();
+if(isset($_GET['idsearch'])){
+	$idsearch = $_GET['idsearch'];
+	
+}else{
+	$idsearch = '';
+}
+
+if(isset($_GET['namesearch'])){
+	$namesearch = $_GET['namesearch'];
+	
+}else{
+	$namesearch = '';
+}
+
+if(isset($_GET['emailsearch'])){
+	$emailsearch = $_GET['emailsearch'];
+	
+}else{
+	$emailsearch = '';
+}
+
+if(isset($_GET['username'])){
+	$username = $_GET['username'];
+	
+}else{
+	$username = '';
+}
+
+$per_page = 50;
+if(isset($_GET['page'])){
+	$page = $_GET['page'];
+}else{
+	$page = 0;
+}
+if($page>0){
+	$start=($page-1)*$per_page;
+}else{
+	$start=$page;
+}
+if(isset($_GET['shortby'])){
+	$sortby = $_GET['shortby'];
+	$sort = $_GET['short'];
+}else{
+	$sortby = 'id';
+	$sort = 'asc';
+}
+$_postdata = array(
+		'leg'=>$per_page,
+		'start'=>$start,
+		'searchby'=>'username',
+		'keyword'=>$username,
+);
+$respone = _postAPIlogin('memberenergy',$_SESSION['tokenadmin'],$_postdata);
+//echo json_encode($respone);
+$totalpage = ceil($respone['total']/$per_page);
+include('header.php');
+?>
+
+<body>
+	<?php include('menu.php');?>
+	<br/>
+	
+	<div class="container-fluid">
+		<nav aria-label="breadcrumb">
+  			<ol class="breadcrumb">
+    			<li class="breadcrumb-item" aria-current="page"><a href="index.php">Dashboard</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Withdraw</li>
+  			</ol>
+		</nav>
+		<div class="card">
+  			<div class="card-body">
+    			<h5>Withdraw</h5>
+				<br/>
+				<div class="row">	
+					<div class="col-lg-3">
+						<div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+  							<div class="card-header"><b><i class="bi bi-currency-dollar"></i>&nbsp;Withdraw Success</b></div>
+  							<div class="card-body">
+    							<p class="card-text"></p>
+  							</div>
+						</div>
+					</div>
+                    <div class="col-lg-3">
+						<div class="card text-bg-warning mb-3" style="max-width: 18rem;">
+  							<div class="card-header"><b><i class="bi bi-currency-dollar"></i>&nbsp;Withdraw Pending Send</b></div>
+  							<div class="card-body">
+    							<p class="card-text"></p>
+  							</div>
+						</div>
+					</div>
+                    <div class="col-lg-3">
+						<div class="card text-bg-danger mb-3" style="max-width: 18rem;">
+  							<div class="card-header"><b><i class="bi bi-currency-dollar"></i>&nbsp;Withdraw Waiting</b></div>
+  							<div class="card-body">
+    							<p class="card-text"></p>
+  							</div>
+						</div>
+					</div>
+                    <div class="col-lg-3">
+						<div class="card text-bg-default mb-3" style="max-width: 18rem;">
+  							<div class="card-header"><b><i class="bi bi-currency-dollar"></i>&nbsp;Balance Admin TRC20</b></div>
+  							<div class="card-body">
+    							<p class="card-text"></p>
+  							</div>
+						</div>
+					</div>
+				</div>
+                <br/>
+                <div class="row">
+                	<div class="col-md-12">
+                        <?php if(!$valid){?>
+                        <div class="alert <?php echo $alert;?>" role="alert">
+  							<?php echo $error;?>
+						</div>
+                        <?php }?>
+                        <div class="table-responsive custom-table-responsive">
+                            <form method="get" id="myForm">
+                            <input type="hidden" name="page" value="<?php echo $page;?>">
+                            <table class="table custom-table" id="table-member">
+                            	<thead>
+            						<tr> 
+              							<th scope="col" width="15%;">
+                            				ID 	<a href="javascript:showsearch(1);"><i class="bi bi-filter-square-fill"></i></a>
+                            					<?php 
+                            						if(isset($_GET['shortby'])){
+                                                    	if($_GET['shortby']!='id'){
+                                                        ?>
+                                                        <a href="?shortby=id&short=asc">
+                            								<i class="bi bi-sort-down"></i>
+                           								</a>
+                                                        <?php
+                                                        }
+                                                    }
+                            					?>
+                            					<?php if(isset($_GET['shortby']) && $_GET['short']=='asc'){
+                                                if($_GET['shortby']=='id'){?>
+                            				   		<a href="?shortby=id&short=desc">
+                            							<i class="bi bi-sort-up"></i>
+                           							</a>
+                                                <?php }?>
+                                               	<?php }else if(isset($_GET['shortby']) && $_GET['short']=='desc'){
+                                                	if($_GET['shortby']=='id'){?>
+                            				   		<a href="?shortby=id&short=asc">
+                            							<i class="bi bi-sort-down"></i>
+                           							</a>
+                                                    <?php }?>
+                                               	<?php }else{?>
+                                                	<a href="?shortby=id&short=asc">
+                            							<i class="bi bi-sort-down"></i>
+                           							</a>
+                                                <?php }?>
+                            				<input type="text" name="idsearch" id="search1" class="form-control sc" value="<?php echo $idsearch;?>">
+                            				<input type="hidden" id="v1" value="0">
+                            			</th>
+              							
+              							<th scope="col" width="25%;">
+                            				Email/Username<a href="javascript:showsearch(3);"><i class="bi bi-filter-square-fill"></i></a>
+                                                    <?php 
+                            						if(isset($_GET['shortby'])){
+                                                    	if($_GET['shortby']!='username'){
+                                                        ?>
+                                                        <a href="?shortby=username&short=asc">
+                            								<i class="bi bi-sort-down"></i>
+                           								</a>
+                                                        <?php
+                                                        }
+                                                    }
+                            					?>
+                                                    <?php if(isset($_GET['shortby']) && $_GET['short']=='asc'){
+                                                    if($_GET['shortby']=='username'){?>
+                            				   			<a href="?shortby=username&short=desc">
+                            								<i class="bi bi-sort-up"></i>
+                           								</a>
+                                                 	<?php }?>
+                                               	<?php }else if(isset($_GET['shortby']) && $_GET['short']=='desc'){
+                                                   	if($_GET['shortby']=='username'){?>
+                            				   			<a href="?shortby=username&short=asc">
+                            								<i class="bi bi-sort-down"></i>
+                           								</a>
+                                                   	<?php }?>
+                                               	<?php }else{?>
+                                                	<a href="?shortby=amount&short=asc">
+                            							<i class="bi bi-sort-down"></i>
+                           							</a>
+                                                <?php }?>
+                            				<input type="text" name="username" id="search3" class="form-control sc" value="<?php echo $username;?>">
+                            				<input type="hidden" id="v3" value="0">
+                            			</th>
+                                        <th scope="col">
+                            				USD Balance
+                            			</th>
+                                        <th scope="col">
+                            				Energy Balance
+                            			</th> 
+										
+            						</tr>
+          						</thead>
+                            	<tbody>
+                            		<?php
+                                         $i=0;
+                                         foreach($respone['data'] as $row){
+                                         	$i++;
+                                         	$md = $i%2;
+                                         	if($md==0){
+                                            	$c ='gj';
+                                            }else{
+                                            	$c='';
+                                            }
+                                         	
+                                     ?>
+                                     <tr>
+                                     	<td class="<?php echo $c;?>" align="center">#<?php echo $row['id'];?></td>
+                                     	
+                                     	<td class="<?php echo $c;?>"><?php echo $row['username'];?></td>
+                                     	<td class="<?php echo $c;?>" align="right">
+											<a href="admin-balance-detail.php?id=<?php echo $row['user_id'];?>">
+												<i class="bi bi-eye-fill"></i>
+											</a>&nbsp;<?php echo $row['balance'];?>
+										</td>
+                                     	<td class="<?php echo $c;?>" align="right">
+										<?php if($row['pointcard_balance']){?>
+											<a href="admin-energy-detail.php?id=<?php echo $row['user_id'];?>"><i class="bi bi-eye-fill"></i></a>&nbsp;<?php echo $row['pointcard_balance'];?>
+										<?php }?>
+										</td>
+										
+                                     </tr>
+                                     <?php
+                                         }
+                                    ?>
+                            	</tbody>
+                                <tfoot>
+                                	<tr>
+                                    	<td colspan="10">
+                                    		<nav aria-label="Page navigation example">
+  												<ul class="pagination">
+                                    				<?php if($page>1){?>
+    												<li class="page-item"><a class="page-link" href="?page=<?php echo $page-1;?>">Previous</a></li>
+                                                    <?php }?>
+                                    				<?php 
+                                    					for($i=1;$i<=$totalpage;$i++){
+                                    				?>
+    													<li class="page-item"><a class="page-link" href="?page=<?php echo $i;?>"><?php echo $i;?></a></li>
+                                                    <?php
+                                                        
+                                                     }?>
+                                                    <?php if($totalpage>$page){?>
+    												<li class="page-item"><a class="page-link" href="?page=<?php echo $page+1;?>">Next</a></li>
+                                                    <?php }?>
+  												</ul>
+											</nav>
+                                    	</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+  			</div>
+		</div>
+	</div>
+    
+</body>
+<?php
+include('footer.php');
+?>
