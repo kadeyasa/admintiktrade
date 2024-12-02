@@ -13,7 +13,7 @@ $is_mt = false;
 if($is_local){
     $_url="http://localhost:8080/";
 }else{
-    $_url ="https://api.volgy.ai/";
+    $_url ="https://api.findtech.pro/";
 }
 
 if($is_mt){
