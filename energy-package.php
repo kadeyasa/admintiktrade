@@ -87,8 +87,10 @@ include('header.php');
             						<tr> 
               							<th scope="col">ID</th>
                         				<th scope="col">PACKAGE NAME</th>
-                        				<th scope="col">PRICE</th>
-                        				<th scope="col">Energy Amount</th>
+										<th scope="col">CREATED AT</th>
+										<th scope="col">UPDATED AT</th>
+                        				<th scope="col">PACKAGE</th>
+                        				<th scope="col">PROFIT</th>
                         				<th scope="col">ACTION</th>
             						</tr>
           						</thead>
@@ -98,12 +100,13 @@ include('header.php');
                                         ?>
                                         <tr> 
               								<td scope="col" align="center"><?php echo $row['id'];?></td>
-                        					<th scope="col"><?php echo $row['package_name'];?></th>
-                        					<th scope="col">USD <?php echo number_format($row['price']);?></th>
-                                            <th scope="col">E-<?php echo number_format($row['getpoint']);?></th>
-                        					<th scope="col">
+											  <td scope="col"><?php echo $row['package_name'];?></td>
+
+                        					<td scope="col">USD <?php echo number_format($row['price']);?></td>
+                                            <td scope="col"><?php echo number_format($row['getpoint']);?>%</td>
+                        					<td scope="col">
                                         		 <a onclick="javascript :return window.confirm('Are you sure?');" href="?action=delete&id=<?php echo $row['id'];?>">Delete</a> 
-                                        	</th>
+                                        	</td>
             							</tr>
                                    	<?php
                                         }

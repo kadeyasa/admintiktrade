@@ -49,7 +49,7 @@
             <i class="bi bi-wallet2"></i>&nbsp;Setting
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="energy-package.php">Energy Package</a></li>
+            <li><a class="dropdown-item" href="energy-package.php">Package</a></li>
             <li><a class="dropdown-item" href="bonus-setup.php">Bonus Setup</a></li>
             <li><a class="dropdown-item" href="admin-setting.php">System Setting</a></li>
             <li><a class="dropdown-item" href="admin-membership.php">Membership Setting</a></li>

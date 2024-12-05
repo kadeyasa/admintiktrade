@@ -915,4 +915,9 @@
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         return $data;
     }
+
+    function getaccountdepositdashboard($limit=10){
+        global $conn;
+        $sql="SELECT * FROM account_deposit ORDER BY created_date DESC limit 10";
+    }
 ?>

@@ -12,7 +12,6 @@ $valid =true;
 include('header.php');
 include('connection.php');
 include('function.php');
-getdatamemberdashboard();
 ?>
 <body>
 	<?php include('menu.php');?>
@@ -26,218 +25,64 @@ getdatamemberdashboard();
 		</nav>
 		<div class="card">
 			<div class="card-body">
-				<h6>Money IN-Flow</h6>
-				<div class="table-responsive custom-table-responsive">
-					<table width="100%" class="table" style="font-size:12px;">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col"><h6>Total Deposit</h6></th>
-								
-							</tr>
-							<tr>
-								<td>
-									<?php 
-										$data = summarydeposit();
-										echo '<h6> $'.number_format($data['totaldeposit'],2).'</h6>';
-									?>
-								</td>
-							</tr>
-						</thead>
-					</table>
-				</div>
-				<h6>Money Out-Flow</h6>
-				<div class="table-responsive custom-table-responsive">
-					<?php 
-						$summarybuyenergy = summarybuyenergy();
-						$summaryupgrade = summaryupgrade();
-						$summarywithdraw = summarywithdraw();
-						$summarybalance = summarymemberbalance();
-						$summaryrewardbalance = summaryrewardbalance();
-						$total = $summarybuyenergy['totalbuyenergy']+$summaryupgrade['totalupgrade']+$summarywithdraw['totalwithdraw']+$summarybalance['totalbalance'];
-					?>
-					<table width="100%" class="table" style="font-size:12px;">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">Total Buy Energy</th>
-								<th scope="col">Amoun Member Upgrade</th>
-								<th scope="col">Total Withdraw</th>
-								<th scope="col">Member Balance Active</th>
-								<th scope="col">Member Reward Balance</th>
-								<th scope="col">Total Out-Flow</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><b>$<?php echo $summarybuyenergy['totalbuyenergy'];?></b></td>
-								<td><b>$<?php echo $summaryupgrade['totalupgrade'];?></b></td>
-								<td><b>$<?php echo $summarywithdraw['totalwithdraw'];?></b></td>
-								<td><b>$<?php echo $summarybalance['totalbalance'];?></td>
-								<td><b>$<?php echo $summaryrewardbalance['totalreward'];?></td>
-								<td><b>$<?php echo $total;?></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-  			</div>
-		</div>
-		<br/>
-		<div class="card">
-			<div class="card-body">
-				<h6>User Star</h6>
-				<div class="table-responsive custom-table-responsive">
-					<table width="100%" class="table" style="font-size:12px;">
-						<tr>
-							<th>Star 1</th>
-							<th>Star 2</th>
-							<th>Star 3</th>
-							<th>Star 4</th>
-						</tr>
-						<tr>
-							<td>
-								<?php 
-									$star = checkuserstart(2);
-								?>
-								<a href="user-star.php?user_star=2" class="btn btn-primary">
-									<?php 
-										echo $star['totalmember'];
-									?>
-								</a>
-							</td>
-							<td>
-								<a href="user-star.php?user_star=3" class="btn btn-success">
-								<?php 
-									$star = checkuserstart(3);
-									echo $star['totalmember'];
-								?>
-								</a>
-							</td>
-							<td>
-								<a href="user-star.php?user_star=4" class="btn btn-warning">
-								<?php 
-									$star = checkuserstart(4);
-									echo $star['totalmember'];
-								?>
-								</a>
-							</td>
-							<td>
-								<a href="user-star.php?user_star=5" class="btn btn-danger">
-									<?php 
-										$star = checkuserstart(5);
-										echo $star['totalmember'];
-									?>
-								</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<br/>
-		<div class="card">
-			<div class="card-body">
 				<div class="row">
-					<div class="col-6"><h6>Member Statistic</h6></div>
-						<div class="col-6 text-right">
-							<select class="form-control" name="viewby" style="font-size:12px;" onchange="memberchange(this.value);">
-								<option value="">View Statistic</option>
-								<option value="month">Monthly</option>
-								<option value="daterange">Range</option>
-							</select>
-							<select name="month" id="month1" style="display:none; margin-top:10px;font-size:12px;" class="form-control">
-								<option value="01">Januari</option>
-								<option value="02">Pebruari</option>
-								<option value="03">Maret</option>
-								<option value="04">April</option>
-								<option value="05">Mei</option>
-								<option value="06">Juni</option>
-								<option value="07">Juli</option>
-								<option value="08">Agustus</option>
-								<option value="09">September</option>
-								<option value="10">Oktober</option>
-								<option value="11">November</option>
-								<option value="12">Desember</option>
-							</select>
-							<br/>
-							<div class="range1" style="display:none; margin-top:10px;font-size:12px;" >
-								<div class="row">
-									<div class="col-6">
-										<div class="form-group">
-											<label>Start Date</label>
-											<input style="font-size:12px;" class="datepicker3" type="text" name="start_date1" class="form-control" id="deposit_start">
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="form-group">
-											<label>End Date</label>
-											<input style="font-size:12px;" class="datepicker4" type="text" name="end_date1" class="form-control" id="end_start">
-										</div>
-									</div>
-								</div>
-								<br/>
-							</div>
-						</div>
+					<div class="col-6">
+						<h6>Account Deposit</h6>
+					</div>
+					<div class="col-12">
+						<table width="100%" class="table" style="font-size:12px;">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">#ID</th>
+									<th scope="col">User ID</th>
+									<th scope="col">Created Date</th>
+									<th scope="col">Amount</th>
+									<th scope="col">Status</th>
+								</tr>
+							</thead>
+						</table>
 					</div>
 				</div>
+				<br/>
 				<div class="row">
+					<div class="col-6">
+						<h6>Package</h6>
+					</div>
 					<div class="col-12">
-						<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+						<table width="100%" class="table" style="font-size:12px;">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">#ID</th>
+									<th scope="col">Package Name</th>
+									<th scope="col">Package</th>
+									<th scope="col">Profit Setting</th>
+									<th scope="col">Created At</th>
+									<th scope="col">Updated At</th>
+									<th scope="col">Action</th>
+								</tr>
+								<?php 
+									$results = getenergypackages();
+									foreach($results as $item){
+										?>
+										<tr>
+											<td scope="col"><?php echo $item['id'];?></td>
+											<td scope="col"><?php echo $item['package_name'];?></td>
+											<td scope="col"><?php echo $item['price'];?></td>
+											<td scope="col"><?php echo $item['getpoint'];?>%</td>
+											<td scope="col"><?php echo $item['created_date'];?></td>
+											<td scope="col"><?php echo $item['updated_date'];?></td>
+											<td scope="col"><a href="edit_profit.php?id=<?php echo $item['id'];?>">Edit Profit</a></td>
+										</tr>
+										<?php
+									}
+								?>
+							</thead>
+						</table>
 					</div>
 				</div>
 			</div>
 	</div>
-	<br/>
-		<div class="card">
-			<div class="card-body">
-				<div class="row">
-					<div class="col-6"><h6>Deposit & Energy Deposit Statistic</h6></div>
-					<div class="col-6 text-right">
-						<select class="form-control" name="viewby" style="font-size:12px;" onchange="depositchange(this.value);">
-							<option value="">View Statistic</option>
-							<option value="month">Monthly</option>
-							<option value="daterange">Range</option>
-						</select>
-						<select name="month" id="month" style="display:none; margin-top:10px;font-size:12px;" class="form-control">
-							<option value="01">Januari</option>
-							<option value="02">Pebruari</option>
-							<option value="03">Maret</option>
-							<option value="04">April</option>
-							<option value="05">Mei</option>
-							<option value="06">Juni</option>
-							<option value="07">Juli</option>
-							<option value="08">Agustus</option>
-							<option value="09">September</option>
-							<option value="10">Oktober</option>
-							<option value="11">November</option>
-							<option value="12">Desember</option>
-						</select>
-						<br/>
-						<div class="range" style="display:none; margin-top:10px;font-size:12px;" >
-							<div class="row">
-								<div class="col-6">
-									<div class="form-group">
-										<label>Start Date</label>
-										<input style="font-size:12px;" class="datepicker" type="text" name="start_date" class="form-control" id="deposit_start">
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group">
-										<label>End Date</label>
-										<input style="font-size:12px;" class="datepicker2" type="text" name="end_date" class="form-control" id="end_start">
-									</div>
-								</div>
-							</div>
-							<br/>
-						</div>
-					</div>
-					<br/>
-					<br/>
-					<hr/>
-					<div class="col-12">
-						<div id="chartContainer" style="height: 300px; width: 100%;"></div>
-					</div>
-				</div>
-			</div>
-	</div>
+	
 </body>
 <?php
 include('footer.php');
