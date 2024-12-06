@@ -71,7 +71,7 @@ include('function.php');
 											<td scope="col"><?php echo $item['getpoint'];?>%</td>
 											<td scope="col"><?php echo $item['created_date'];?></td>
 											<td scope="col"><?php echo $item['updated_date'];?></td>
-											<td scope="col"><a href="edit_profit.php?id=<?php echo $item['id'];?>">Edit Profit</a></td>
+											<td scope="col"><a href="edit-profit.php?id=<?php echo $item['id'];?>">Edit Profit</a></td>
 										</tr>
 										<?php
 									}

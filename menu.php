@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="index.php">Admin Panel - TRD</a>
+    <a class="navbar-brand" href="index.php">Admin Panel</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,18 +31,10 @@
             <li><a class="dropdown-item" href="admin-deposit.php">Deposit</a></li>
             <li><a class="dropdown-item" href="admin-withdraw.php">Withdraw</a></li>
             <li><a class="dropdown-item" href="admin-rewards.php">Rewards</a></li>
-            <li><a class="dropdown-item" href="admin-recordenergy.php">Record Energy</a></li>
+            
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-wallet2"></i>&nbsp;Energy
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="admin-energy.php">Member Energy</a></li>
-			      <li><a class="dropdown-item" href="admin-cut-balance.php">Cut Balance</a></li>
-          </ul>
-        </li>
+        
         <?php if($_SESSION['role']==1){?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
